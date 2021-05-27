@@ -60,7 +60,7 @@ def plot_attributes_comparison(particles_to_compare_source: pd.DataFrame, x_test
                                particles_to_compare_target: pd.DataFrame, x_test_target: pd.DataFrame,
                                particles_name: str, particles_type: str) -> None:
     """
-    Plots distribution of wrongly classified / unadapted particles with the distribution of all the particles.
+    Compare distribution of wrongly classified / unadapted particles with the distribution of all the particles.
     The comparisons are made separately for source and target domain.
     Plots are saved into /plots/distributions/wrongly_classified or /plots/distributions/unadapted_particles
 

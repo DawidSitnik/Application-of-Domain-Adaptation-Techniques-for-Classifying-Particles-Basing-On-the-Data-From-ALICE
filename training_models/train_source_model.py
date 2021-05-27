@@ -10,11 +10,11 @@ import torch.nn.functional as F
 from domain_adaptation.modules.classifier import Classifier
 from tools.utils import AverageMeter, ProgressMeter, accuracy, ForeverDataIterator
 from tools.lr_scheduler import StepwiseLR
-from my_utils.data_loader import prepare_datasets_dict
-from my_utils.config import Config
-from my_utils.models import Net
-from my_utils.validation import validate
-from my_utils.utils import load_pickle
+from utils.data_loader import prepare_datasets_dict
+from utils.config import Config
+from utils.models import Net
+from utils.validation import validate
+from utils.utils import load_pickle
 
 sys.path.append('')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

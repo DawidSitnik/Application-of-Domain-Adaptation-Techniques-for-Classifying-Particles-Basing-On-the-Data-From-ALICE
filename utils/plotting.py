@@ -1,6 +1,6 @@
 from matplotlib.pyplot import figure
 import matplotlib.pyplot as plt
-from my_utils.config import Config
+from utils.config import Config
 import matplotlib.colors as col
 
 

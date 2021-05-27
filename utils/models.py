@@ -1,5 +1,5 @@
 from torch import nn
-from my_utils.config import Config
+from utils.config import Config
 
 
 class Net(nn.Module):

@@ -4,8 +4,8 @@ import torch
 import pickle
 import numpy as np
 from domain_adaptation.modules.classifier import Classifier as SourceClassifier
-from my_utils.models import Net
-from my_utils.config import Config
+from utils.models import Net
+from utils.config import Config
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

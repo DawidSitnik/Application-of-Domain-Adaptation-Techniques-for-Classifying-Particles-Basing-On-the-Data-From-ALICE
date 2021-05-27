@@ -10,12 +10,12 @@ from tools.utils import ForeverDataIterator
 from domain_adaptation.modules.classifier import Classifier as SourceClassifier
 
 # my utils
-from my_utils.utils import load_pickle, save_pickle
-from my_utils.training_stats import TrainingStats
-from my_utils.validation import validate
-from my_utils.config import Config
-from my_utils.models import Net, wdgrl_critic
-from my_utils.plotting import plot_training_stats
+from utils.utils import load_pickle, save_pickle
+from utils.training_stats import TrainingStats
+from utils.validation import validate
+from utils.config import Config
+from utils.models import Net, wdgrl_critic
+from utils.plotting import plot_training_stats
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_name = 'wdgrl'

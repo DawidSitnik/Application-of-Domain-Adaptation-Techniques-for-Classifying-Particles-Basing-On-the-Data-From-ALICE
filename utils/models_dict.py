@@ -3,7 +3,7 @@ from domain_adaptation.adaptation.dan import ParticlesClassifier as ParticlesCla
 from domain_adaptation.adaptation.dann import ParticlesClassifier as ParticlesClassifierDANN
 from domain_adaptation.adaptation.jan import ParticlesClassifier as ParticlesClassifierJAN
 from domain_adaptation.adaptation.mdd import ParticlesClassifier as ParticlesClassifierMDD
-from my_utils.config import Config
+from utils.config import Config
 
 
 models_dict = {

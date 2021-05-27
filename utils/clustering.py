@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from my_utils.minisom import MiniSom
+from utils.minisom import MiniSom
 
 
 def som_predict(x, som) -> int:

@@ -6,7 +6,7 @@ from .datasets import Dataset, TargetDataset
 from .utils import save_pickle, load_pickle
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
-from my_utils.config import Config
+from utils.config import Config
 
 
 def compute_weights(labels_list: List) -> [float, float]:

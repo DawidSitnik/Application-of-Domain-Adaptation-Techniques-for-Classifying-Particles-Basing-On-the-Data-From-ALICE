@@ -1,9 +1,7 @@
-from my_utils.datasets import TargetDataset
+from utils.datasets import TargetDataset
 from tools.utils import ForeverDataIterator
-
 import torch
-from my_utils.config import Config
-
+from utils.config import Config
 from domain_adaptation.adaptation.dan import MultipleKernelMaximumMeanDiscrepancy
 from domain_adaptation.modules.kernels import GaussianKernel
 
