@@ -64,6 +64,7 @@ def models_validation() -> dict:
                                             classifier,
                                             print_classification_report=False,
                                             loud=False)
+            print(precision_recall_auc)
             results_dict[model_name][particle_name] = precision_recall_auc
 
     save_pickle(results_dict, f'{Config.source_fp}/pickles/classification_quality/results_dict.pkl')

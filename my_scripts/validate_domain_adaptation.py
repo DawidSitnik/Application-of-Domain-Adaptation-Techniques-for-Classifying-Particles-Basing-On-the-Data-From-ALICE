@@ -5,7 +5,7 @@ from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import average_precision_score
 from utils.models_dict import models_dict
-from utils.utils import does_file_exist
+from utils.utils import does_file_exist, get_dataset
 
 
 def main():
@@ -56,15 +56,6 @@ def main():
     results_df = results_df.sort_values(by='mean', ascending=True)
     print(results_df)
     save_pickle(results_df, f'{Config.source_fp}/pickles/domain_adaptation_quality/domain_adaptation_quality.pkl')
-
-
-def get_dataset(source_features, target_features):
-    df_source = pd.DataFrame(source_features)
-    df_source['domain'] = 0
-    df_target = pd.DataFrame(target_features)
-    df_target['domain'] = 1
-
-    return df_source.append(df_target, ignore_index=True)
 
 
 def get_auc(classifier, dataset):

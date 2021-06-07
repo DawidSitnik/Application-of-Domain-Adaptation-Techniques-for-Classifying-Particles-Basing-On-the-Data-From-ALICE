@@ -4,7 +4,7 @@ import torch.nn as nn
 from domain_adaptation.modules.grl import WarmStartGradientReverseLayer
 from domain_adaptation.modules.classifier import Classifier as ClassifierBase
 from ._util import binary_accuracy
-from my_utils.config import Config
+from utils.config import Config
 
 __all__ = ['DomainAdversarialLoss']
 

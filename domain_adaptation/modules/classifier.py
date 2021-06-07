@@ -4,7 +4,7 @@ import torch
 
 __all__ = ['Classifier']
 
-from my_utils.config import Config
+from utils.config import Config
 
 
 class Classifier(nn.Module):

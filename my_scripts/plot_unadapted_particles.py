@@ -24,47 +24,47 @@ def main():
     """
     print("Marking unadapted particles.")
     for particle_name in Config.particles_list:
-        for model_name in Config.da_models_list:
-            embedding_fp = f'{Config.source_fp}/pickles/umap_embeddings/{particle_name}_{model_name}_umap_embedding.pkl'
-            if does_file_exist(embedding_fp):
-                print(f'loading embedding for {particle_name}, {model_name}')
-                embedding = load_pickle(embedding_fp)
-            else:
-                print(f'creating embedding for {particle_name}, {model_name}')
-                # loading output from last layer
-                test_source_features = load_pickle(
-                    f'{Config.source_fp}/pickles/last_layer_output/{model_name}_{particle_name}_source_last_layer_output.pkl')
-                test_target_features = load_pickle(
-                    f'{Config.source_fp}/pickles/last_layer_output/{model_name}_{particle_name}_target_last_layer_output.pkl')
-                # creating embedding
-                features = np.concatenate((test_source_features, test_target_features), axis=0)
-                embedding = umap.UMAP().fit_transform(features)
-
+        model_name = 'source'
+        embedding_fp = f'{Config.source_fp}/pickles/umap_embeddings/{particle_name}_{model_name}_umap_embedding.pkl'
+        if does_file_exist(embedding_fp):
+            print(f'loading embedding for {particle_name}, {model_name}')
+            embedding = load_pickle(embedding_fp)
+        else:
+            print(f'creating embedding for {particle_name}, {model_name}')
+            # loading output from last layer
             test_source_features = load_pickle(
                 f'{Config.source_fp}/pickles/last_layer_output/{model_name}_{particle_name}_source_last_layer_output.pkl')
             test_target_features = load_pickle(
                 f'{Config.source_fp}/pickles/last_layer_output/{model_name}_{particle_name}_target_last_layer_output.pkl')
-            domains = np.concatenate((np.ones(len(test_source_features)), np.zeros(len(test_target_features))))
+            # creating embedding
+            features = np.concatenate((test_source_features, test_target_features), axis=0)
+            embedding = umap.UMAP().fit_transform(features)
 
-            # visualize and save umap with marked domains
-            plt.figure(figsize=(30, 30))
-            plt.scatter(embedding[:, 0], embedding[:, 1], c=domains, cmap=col.ListedColormap(["r", "b"]), s=2)
-            plt.savefig(f'{Config.source_fp}/plots/umap_embeddings/domain/{particle_name}_{model_name}.png')
-            save_pickle(embedding, embedding_fp)
+        test_source_features = load_pickle(
+            f'{Config.source_fp}/pickles/last_layer_output/{model_name}_{particle_name}_source_last_layer_output.pkl')
+        test_target_features = load_pickle(
+            f'{Config.source_fp}/pickles/last_layer_output/{model_name}_{particle_name}_target_last_layer_output.pkl')
+        domains = np.concatenate((np.ones(len(test_source_features)), np.zeros(len(test_target_features))))
 
-            # load unadapted clusters list
-            unadapted_clusters_list = load_pickle(f'{Config.source_fp}/pickles/unadapted_particles/{model_name}_{particle_name}_unadapted_clusters_list.pkl')
-            # load features from feature extractor
-            clustered_features = load_pickle(
-                f'{Config.source_fp}/pickles/clustering_last_layer/{model_name}_{particle_name}_last_layer_clustering.pkl')
+        # visualize and save umap with marked domains
+        plt.figure(figsize=(30, 30))
+        plt.scatter(embedding[:, 0], embedding[:, 1], c=domains, cmap=col.ListedColormap(["r", "b"]), s=2)
+        plt.savefig(f'{Config.source_fp}/plots/umap_embeddings/domain/{particle_name}_{model_name}.png')
+        save_pickle(embedding, embedding_fp)
 
-            # get indexes of unadapted particles
-            unadapted_particles_indexes = clustered_features[clustered_features['cluster'].isin(unadapted_clusters_list)].index.values
+        # load unadapted clusters list
+        unadapted_clusters_list = load_pickle(f'{Config.source_fp}/pickles/unadapted_particles/{model_name}_{particle_name}_unadapted_clusters_list_{Config.metric}.pkl')
+        # load features from feature extractor
+        clustered_features = load_pickle(
+            f'{Config.source_fp}/pickles/clustering_last_layer/{model_name}_{particle_name}_last_layer_clustering.pkl')
 
-            # plot embedding marking unadapted particles
-            particles_labels = np.zeros(len(embedding))
-            particles_labels[unadapted_particles_indexes] = 1
-            plot_umap_with_unadapted_particles(embedding, particles_labels, particle_name, model_name)
+        # get indexes of unadapted particles
+        unadapted_particles_indexes = clustered_features[clustered_features['cluster'].isin(unadapted_clusters_list)].index.values
+
+        # plot embedding marking unadapted particles
+        particles_labels = np.zeros(len(embedding))
+        particles_labels[unadapted_particles_indexes] = 1
+        plot_umap_with_unadapted_particles(embedding, particles_labels, particle_name, model_name)
 
 
 def plot_umap_with_unadapted_particles(embedding, plot_labels, particles_name, model_name):
@@ -72,7 +72,7 @@ def plot_umap_with_unadapted_particles(embedding, plot_labels, particles_name, m
     plt.figure(figsize=(30, 30))
     plt.scatter(embedding[:, 0], embedding[:, 1], c=plot_labels, cmap=color_map, s=2)
     plt.title(f'Unadapted Particles ({particles_name}, {model_name})')
-    plt.savefig(f'{Config.source_fp}/plots/emap_embeddings/unadapted_particles/{particles_name}_{model_name}.png')
+    plt.savefig(f'{Config.source_fp}/plots/umap_embeddings/unadapted_particles/{particles_name}_{model_name}_{Config.metric}.png')
 
 
 if __name__ == '__main__':

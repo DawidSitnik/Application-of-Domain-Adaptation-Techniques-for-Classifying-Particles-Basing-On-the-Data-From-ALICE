@@ -1,5 +1,5 @@
 import os
-
+import pandas as pd
 import torch
 import pickle
 import numpy as np
@@ -49,6 +49,15 @@ def get_model_features(classifier, loader):
     features = np.array(features)
 
     return features
+
+
+def get_dataset(source_features, target_features):
+    df_source = pd.DataFrame(source_features)
+    df_source['domain'] = 0
+    df_target = pd.DataFrame(target_features)
+    df_target['domain'] = 1
+
+    return df_source.append(df_target, ignore_index=True)
 
 
 def get_classifier(model_name, particle_name, models_dict):

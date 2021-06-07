@@ -11,10 +11,13 @@ class Config:
         3: 'protons'
     }
 
-    # da_models_list = ['cdan', 'dan', 'jan', 'dann', 'mdd', 'wdgrl']
-    da_models_list = ['dan']
-    # particles_list = ['electrons', 'pions', 'kaons', 'protons']
-    particles_list = ['kaons']
+    da_models_list = ['cdan', 'dan', 'jan', 'dann', 'mdd', 'wdgrl']
+    # da_models_list = ['dan']
+    particles_list = ['electrons', 'pions', 'kaons', 'protons']
+    # particles_list = ['kaons']
+
+    # unadapted particles
+    metric = 'a-distance'
 
     # file paths
     source_fp = f'../data'
@@ -36,7 +39,8 @@ class Config:
     perturbation = 0.05
     # used for perturbating attributes 4 (its_signal) and 6 (tpc_signal)
     # which has distribution similar to normal and needs more perturbation
-    additional_perturbation = 0.35
+    its_signal_perturbation = 0.00
+    tpc_signal_perturbation = 0.00
 
     # adaptation quality
     max_score = 100

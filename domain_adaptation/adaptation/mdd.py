@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch
 from domain_adaptation.modules.grl import WarmStartGradientReverseLayer
-from my_utils.config import Config
+from utils.config import Config
 
 
 class MarginDisparityDiscrepancy(nn.Module):

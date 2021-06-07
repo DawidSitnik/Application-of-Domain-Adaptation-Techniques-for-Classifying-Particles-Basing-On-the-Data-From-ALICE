@@ -10,7 +10,7 @@ def main():
     Plots comparison of attributes distributions for simulation, production and perturbed datasets.
     The plot is saved into /plots/distributions/attributes_distributions/
     """
-    datasets_dict = load_pickle(f'{Config.source_fp}/pickles/datasets_dict_kaons.pkl')
+    datasets_dict = load_pickle(f'{Config.training_data_fp}datasets_dict_kaons.pkl')
 
     fig, axs = plt.subplots(7, figsize=(10, 10))
 
@@ -38,6 +38,9 @@ def main():
         density_x = density(x)
         axs[i].plot(density_x/np.max(density_x), label='Production Dataset', alpha=0.5)
         axs[i].set_title(f"{column}", fontsize=20)
+
+        if i == 0:
+            axs[i].legend(loc='upper right')
 
     fig.tight_layout(h_pad=0.5)
     fig.savefig(

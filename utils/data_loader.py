@@ -34,7 +34,7 @@ def prepare_datasets_dict(test_size: float, seed: int, batch_size: int, class_to
     data_sim = load_pickle(Config.preprocessed_data_sim_fp)
 
     data_prod = data_prod.loc[:, np.setdiff1d(data_prod.columns, ['pdg_code'])]
-    data_sim = data_sim.sample(frac=Config.frac, random_state=0)
+    # data_sim = data_sim.sample(frac=Config.frac, random_state=0)
 
     Y = change_labels(data_sim['pdg_code'], class_to_predict)
     x = data_sim.loc[:, np.setdiff1d(data_sim.columns, ['pdg_code'])]
@@ -49,7 +49,8 @@ def prepare_datasets_dict(test_size: float, seed: int, batch_size: int, class_to
     x_perturbed[:, [1, 2, 3, 5]] = x[:, [1, 2, 3, 5]] + np.random.normal(-Config.perturbation, Config.perturbation, (len(x[:, 1]), 4))
 
     # additionally perturb attributes 4 and 6 which has distribution similar to normal and needs more perturbation
-    x_perturbed[:, [4, 6]] = x[:, [4, 6]] + np.random.normal(-Config.additional_perturbation, Config.additional_perturbation, (len(x[:, 1]), 2))
+    # x_perturbed[:, [4]] = x[:, [4]] + np.random.normal(-Config.its_signal_perturbation, Config.its_signal_perturbation, (len(x[:, 1]), 1))
+    # x_perturbed[:, [6]] = x[:, [6]] + np.random.normal(-Config.tpc_signal_perturbation, Config.tpc_signal_perturbation, (len(x[:, 1]), 1))
     x_perturbed = scaler.fit_transform(x_perturbed)
 
     x = pd.DataFrame(x, columns=x_columns)
@@ -104,3 +105,4 @@ def prepare_datasets_dict(test_size: float, seed: int, batch_size: int, class_to
 
     save_pickle(datasets_dict, f'{Config.training_data_fp}/datasets_dict_{Config.particles_dict[class_to_predict]}.pkl')
     save_pickle(training_weights, f'{Config.training_data_fp}/training_weights_{Config.particles_dict[class_to_predict]}.pkl')
+    save_pickle(x_perturbed, f'{Config.training_data_fp}/x_perturbed_{Config.particles_dict[class_to_predict]}.pkl')
