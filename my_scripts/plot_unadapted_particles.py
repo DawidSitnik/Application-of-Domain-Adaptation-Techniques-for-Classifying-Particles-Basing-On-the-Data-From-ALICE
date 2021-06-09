@@ -53,7 +53,7 @@ def main():
         save_pickle(embedding, embedding_fp)
 
         # load unadapted clusters list
-        unadapted_clusters_list = load_pickle(f'{Config.source_fp}/pickles/unadapted_particles/{model_name}_{particle_name}_unadapted_clusters_list_{Config.metric}.pkl')
+        unadapted_clusters_list = load_pickle(f'{Config.source_fp}/pickles/unadapted_particles/{model_name}_{particle_name}_unadapted_clusters_list.pkl')
         # load features from feature extractor
         clustered_features = load_pickle(
             f'{Config.source_fp}/pickles/clustering_last_layer/{model_name}_{particle_name}_last_layer_clustering.pkl')
@@ -72,7 +72,7 @@ def plot_umap_with_unadapted_particles(embedding, plot_labels, particles_name, m
     plt.figure(figsize=(30, 30))
     plt.scatter(embedding[:, 0], embedding[:, 1], c=plot_labels, cmap=color_map, s=2)
     plt.title(f'Unadapted Particles ({particles_name}, {model_name})')
-    plt.savefig(f'{Config.source_fp}/plots/umap_embeddings/unadapted_particles/{particles_name}_{model_name}_{Config.metric}.png')
+    plt.savefig(f'{Config.source_fp}/plots/umap_embeddings/unadapted_particles/{particles_name}_{model_name}.png')
 
 
 if __name__ == '__main__':

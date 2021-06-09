@@ -121,12 +121,11 @@ def main():
 
         # save unadapted clusters list
         index_of_biggest_cluster = cluster_summary['count'].argmax()
-        metric = Config.metric
-        diffusion_of_biggest_cluster = cluster_summary.iloc[index_of_biggest_cluster][metric]
+        diffusion_of_biggest_cluster = cluster_summary.iloc[index_of_biggest_cluster]['a-distance']
 
-        unadapted_clusters_list = list(set(cluster_summary[cluster_summary[metric] > diffusion_of_biggest_cluster]['cluster']))
+        unadapted_clusters_list = list(set(cluster_summary[cluster_summary['a-distance'] > diffusion_of_biggest_cluster]['cluster']))
         save_pickle(unadapted_clusters_list,
-                    f'{Config.source_fp}/pickles/unadapted_particles/{model_name}_{particle_name}_unadapted_clusters_list_{metric}.pkl')
+                    f'{Config.source_fp}/pickles/unadapted_particles/{model_name}_{particle_name}_unadapted_clusters_list.pkl')
 
         # save unadapted_particles
         unadapted_particles_indexes = clustered_features[

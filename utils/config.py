@@ -16,9 +16,6 @@ class Config:
     particles_list = ['electrons', 'pions', 'kaons', 'protons']
     # particles_list = ['kaons']
 
-    # unadapted particles
-    metric = 'a-distance'
-
     # file paths
     source_fp = f'../data'
     training_data_fp = f'{source_fp}/pickles/training_data/'
@@ -34,6 +31,9 @@ class Config:
     dann_model_fp = models_dir + 'dann'
     mdd_model_fp = models_dir + 'mdd'
     wdgrl_model_fp = models_dir + 'wdgrl'
+    xgb_model_fp = models_dir + 'xgb'
+    cb_model_fp = models_dir + 'cb'
+    random_forest_model_fp = models_dir + 'random_forest'
 
     # used for all attributes expects 4 (its_signal) and 6 (tpc_signal)
     perturbation = 0.05
