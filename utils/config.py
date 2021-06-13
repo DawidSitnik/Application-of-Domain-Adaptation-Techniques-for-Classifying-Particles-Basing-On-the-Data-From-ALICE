@@ -17,14 +17,16 @@ class Config:
     # particles_list = ['kaons']
 
     # file paths
+    target_domain = 'production'  # production or perturbed
     source_fp = f'../data'
     training_data_fp = f'{source_fp}/pickles/training_data/'
+    training_data_michal_fp = f'{source_fp}/pickles/training_data_michal/'
     raw_data_prod_fp = f'{training_data_fp}/production.pkl'
     raw_data_sim_fp = f'{training_data_fp}/simulation.pkl'
     preprocessed_data_prod_fp = f'{training_data_fp}/data_prod_preprocessed.pkl'
     preprocessed_data_sim_fp = f'{training_data_fp}/data_sim_preprocessed.pkl'
-    models_dir = f'{source_fp}/trained_models/'
-    source_model_fp = f'{source_fp}/trained_models/source'
+    models_dir = f'{source_fp}/trained_models/{target_domain}/'
+    source_model_fp = f'{models_dir}source'
     cdan_model_fp = models_dir + 'cdan'
     dan_model_fp = models_dir + 'dan'
     jan_model_fp = models_dir + 'jan'

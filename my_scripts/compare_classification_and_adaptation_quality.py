@@ -40,14 +40,15 @@ def main():
             df_to_print = df_merged[[column_1, column_2, 'Model Name']].sort_values(by=column_1, ascending=True)
             plt.plot(df_to_print[column_1], df_to_print[column_2])
             plt.scatter(df_to_print[column_1], df_to_print[column_2])
-            plt.ylabel('AUC for particle classifier')
-            plt.xlabel('1 - AUC for domain classifier')
-            plt.title(f'Classification vs Adaptation Quality for {column}')
+            plt.ylabel('Classification Quality', fontsize=20)
+            plt.xlabel('Adaptation Quality', fontsize=20)
+            plt.title(f'{column.capitalize()}', fontsize=20)
 
             # appending annotations
             for i, model_name in enumerate(list(df_to_print['Model Name'])):
                 plt.annotate(model_name, (list(df_to_print[column_1])[i], list(df_to_print[column_2])[i]))
             plt.savefig(f'{Config.source_fp}/plots/classification_vs_adaptation_quality/{column}.png')
+            plt.show()
 
 
 if __name__ == '__main__':

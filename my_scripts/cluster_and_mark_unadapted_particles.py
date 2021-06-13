@@ -123,7 +123,7 @@ def main():
         index_of_biggest_cluster = cluster_summary['count'].argmax()
         diffusion_of_biggest_cluster = cluster_summary.iloc[index_of_biggest_cluster]['a-distance']
 
-        unadapted_clusters_list = list(set(cluster_summary[cluster_summary['a-distance'] > diffusion_of_biggest_cluster]['cluster']))
+        unadapted_clusters_list = list(set(cluster_summary[cluster_summary['a-distance'] < diffusion_of_biggest_cluster]['cluster']))
         save_pickle(unadapted_clusters_list,
                     f'{Config.source_fp}/pickles/unadapted_particles/{model_name}_{particle_name}_unadapted_clusters_list.pkl')
 
