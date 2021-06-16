@@ -33,6 +33,7 @@ class Config:
     dann_model_fp = models_dir + 'dann'
     mdd_model_fp = models_dir + 'mdd'
     wdgrl_model_fp = models_dir + 'wdgrl'
+    wdgrl_michal_model_fp = models_dir + 'wdgrl_michal'
     xgb_model_fp = models_dir + 'xgb'
     cb_model_fp = models_dir + 'cb'
     random_forest_model_fp = models_dir + 'random_forest'

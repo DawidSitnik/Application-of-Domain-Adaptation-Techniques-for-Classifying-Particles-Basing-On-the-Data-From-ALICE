@@ -13,7 +13,8 @@ models_dict = {
         'cdan': {},
         'dann': {},
         'mdd': {},
-        'wdgrl': {}
+        'wdgrl': {},
+        'wdgrl_michal': {}
     }
 
 models_dict['jan']['model'] = ParticlesClassifierJAN

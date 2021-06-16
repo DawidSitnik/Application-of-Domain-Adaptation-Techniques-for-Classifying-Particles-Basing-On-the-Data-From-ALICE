@@ -59,6 +59,7 @@ def get_dataset(source_features, target_features):
 
     return df_source.append(df_target, ignore_index=True)
 
+from utils.wdgrl_michal import Network
 
 def get_classifier(model_name, particle_name, models_dict):
     backbone = Net(Config.n_features)
@@ -76,6 +77,13 @@ def get_classifier(model_name, particle_name, models_dict):
             torch.load(f'{Config.source_model_fp}_{particle_name}.pt',
                        map_location=torch.device(device)))
         return source_classifier
+
+    if model_name == 'wdgrl_michal':
+        classifier = Network()
+        classifier.load_state_dict(
+            torch.load(f'{Config.wdgrl_michal_model_fp}_{particle_name}.pt',
+                       map_location=torch.device(device)))
+        return classifier
 
     else:
         source_classifier.load_state_dict(

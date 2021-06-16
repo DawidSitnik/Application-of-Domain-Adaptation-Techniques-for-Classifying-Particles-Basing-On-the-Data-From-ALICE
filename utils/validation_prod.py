@@ -13,7 +13,10 @@ def validate(val_loader, model):
     with torch.no_grad():
         for i, (features, _) in enumerate(val_loader):
             features = features.to(device)
-            output, _ = model(features)
+            try:
+                output, _ = model(features)
+            except:
+                output = model(features)
             _, output = torch.max(output.data, 1)
             outputs = outputs + list(output.cpu().detach().numpy())
     return outputs
@@ -84,7 +87,8 @@ def estimate_classification_quality(data_frame, pdg_code):
         plt.title('tpc_signal distribution, P in range (' + str(round(p_ranges[i], 2)) + ', ' + str(round(p_ranges[i + 1], 2)) +']')
 
         del fig, ax
-        plt.pause(0.1)
+        # plt.pause(0.1)
+        plt.clf()
         counts_0.append(counts_tmp[0])
         counts_1.append(counts_tmp[1])
 
@@ -151,10 +155,11 @@ def estimate_classification_quality(data_frame, pdg_code):
         plt.plot(bins[i], one_gaussians(bins[i], *optim[i][3*pdg_code:3*pdg_code+3]), linewidth=2)
         plt.yscale('log')
         ax.set_facecolor('w')
-        plt.pause(0.1)
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        # plt.pause(0.1)
+        plt.clf()
 
     def my_mean(df):
         return sum(df) / len(df)
 
-    return my_mean(avg_gauss_prob), my_mean(avg_model_prob), my_mean(avg_efficiency), my_mean(avg_accuracy)
+    # return my_mean(avg_gauss_prob), my_mean(avg_model_prob), my_mean(avg_efficiency), my_mean(avg_accuracy)
+    return avg_gauss_prob, avg_model_prob, avg_efficiency, avg_accuracy
