@@ -4,7 +4,7 @@ import torch
 import pickle
 import numpy as np
 from domain_adaptation.modules.classifier import Classifier as SourceClassifier
-from utils.models import Net
+from utils.models import Net, Net_Michal
 from utils.config import Config
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -79,7 +79,7 @@ def get_classifier(model_name, particle_name, models_dict):
         return source_classifier
 
     if model_name == 'wdgrl_michal':
-        classifier = Network()
+        classifier = Net_Michal()
         classifier.load_state_dict(
             torch.load(f'{Config.wdgrl_michal_model_fp}_{particle_name}.pt',
                        map_location=torch.device(device)))

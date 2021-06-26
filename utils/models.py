@@ -1,6 +1,34 @@
 from torch import nn
 from utils.config import Config
 
+num_of_hiden_nodes = 200
+num_of_hiden_nodes_dom = 50
+
+
+class Net_Michal(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.feature_extractor = nn.Sequential(
+            nn.Linear(6, num_of_hiden_nodes),
+            nn.BatchNorm1d(num_of_hiden_nodes), nn.Dropout(p=0.3), nn.LeakyReLU(0.2, True),
+            nn.Linear(num_of_hiden_nodes, num_of_hiden_nodes),
+            nn.BatchNorm1d(num_of_hiden_nodes), nn.Dropout(p=0.3), nn.LeakyReLU(0.2, True),
+            nn.Linear(num_of_hiden_nodes, num_of_hiden_nodes),
+            nn.BatchNorm1d(num_of_hiden_nodes), nn.Dropout(p=0.3), nn.LeakyReLU(0.2, True)
+        )
+
+        self.classifier = nn.Sequential(
+            nn.Linear(num_of_hiden_nodes, num_of_hiden_nodes_dom),
+            nn.ReLU(),
+            nn.Dropout(p=0.3),
+            nn.Linear(num_of_hiden_nodes_dom, 2),
+        )
+
+    def forward(self, x):
+        features = self.feature_extractor(x)
+        features = features.view(x.shape[0], -1)
+        logits = self.classifier(features)
+        return logits
 
 class Net(nn.Module):
 

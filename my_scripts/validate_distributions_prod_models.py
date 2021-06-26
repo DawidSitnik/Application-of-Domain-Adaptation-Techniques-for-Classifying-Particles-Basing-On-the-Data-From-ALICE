@@ -26,25 +26,25 @@ def main():
 
 
 def models_validation() -> dict:
-    """
 
-    """
     plots_dir_path = '../data/plots/p_vs_tpc/'
 
-    # Config.particles_list = ['pions']
+    Config.particles_list = ['electrons', 'pions']
 
     for i, particle_name in enumerate(Config.particles_list):
         datasets_dict = load_pickle(f'{Config.training_data_michal_fp}/datasets_dict_{i}.pkl')
         plot_original_p_vs_tpc(datasets_dict, particle_name)
 
         for model_name in models_dict:
-            if model_name not in ['source', 'wdgrl', 'dann']:
+            if model_name not in ['source', 'wdgrl', 'dann', 'wdgrl_michal']:
                 continue
             print(f'validating {model_name}, {particle_name}')
             classifier = get_classifier(model_name, particle_name, models_dict)
-            pdg_code = validate(datasets_dict['prod_loader'], classifier)
-            columns = datasets_dict['data_prod'].columns
-            prod_df = pd.DataFrame(scaler.inverse_transform(datasets_dict['data_prod']), columns=columns)
+            # pdg_code = validate(datasets_dict['prod_loader'], classifier)
+            # columns = datasets_dict['data_prod'].columns
+            pdg_code = validate(datasets_dict['train_source_loader'], classifier)
+            columns = datasets_dict['x_train_source'].columns
+            prod_df = pd.DataFrame(scaler.inverse_transform(datasets_dict['x_train_source']), columns=columns)
             prod_df['pdg_code'] = pdg_code
             prod_df = prod_df.sample(len(datasets_dict['x_train_source']))  # for better comparison
             plot_p_vs_tpc(prod_df.query('pdg_code == 1'), model_name, particle_name)

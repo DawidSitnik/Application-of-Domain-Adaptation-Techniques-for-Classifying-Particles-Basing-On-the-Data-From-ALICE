@@ -51,7 +51,7 @@ def main():
 
         critic = wdgrl_critic.to(device=device)
 
-        critic_optim = torch.optim.RMSprop(critic.parameters(), lr=0.0001)
+        critic_optim = torch.optim.Adam(critic.parameters(), lr=0.0001)
         clf_optim = torch.optim.Adam(classifier.parameters(), lr=0.0001)
         clf_criterion = nn.CrossEntropyLoss()
 
